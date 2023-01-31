@@ -4,7 +4,7 @@ import java.io.File;
 
 public class Recipe {
 	private String title;
-	private int NO_of_Serving;
+	private int No_of_Serving;
 	private Boolean isGlutenFree;
 	private float difficulty;
 	private int No_of_Ingredients;
@@ -19,11 +19,11 @@ public class Recipe {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public int getNO_of_Serving() {
-		return NO_of_Serving;
+	public int getNo_of_Serving() {
+		return No_of_Serving;
 	}
-	public void setNO_of_Serving(int nO_of_Serving) {
-		NO_of_Serving = nO_of_Serving;
+	public void setNo_of_Serving(int no_of_Serving) {
+		No_of_Serving = no_of_Serving;
 	}
 	public Boolean getIsGlutenFree() {
 		return isGlutenFree;
@@ -64,7 +64,11 @@ public class Recipe {
 	public Chef getChef() {
 		return chef;
 	}
-	public void setChef(Chef chef) {
-		this.chef = chef;
+	public void setChef(String firstName, String lastName, String username, String email, String phone) {
+		this.chef.setFirstName(firstName);
+		this.chef.setLastName(lastName);
+		this.chef.setEmail(email);
+		this.chef.setUserName(username);
+		this.chef.setPhoneNumber(phone);
 	}
 }
