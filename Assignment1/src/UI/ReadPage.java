@@ -3,6 +3,7 @@ package UI;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Image;
 import java.util.ArrayList;
 
 import javax.swing.JTextField;
@@ -11,6 +12,7 @@ import Model.Chef;
 import Model.Recipe;
 
 import javax.swing.JTextArea;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Choice;
 import java.awt.Checkbox;
@@ -18,9 +20,9 @@ import java.awt.event.ActionListener;
 import java.lang.annotation.Target;
 import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
+import java.awt.Color;
 
 public class ReadPage extends JPanel {
-	private JTextField tfPicture;
 	private JTextField tfCategory;
 	private JTextField tfNoOfIngredients;
 	private JTextField tfDifficulty;
@@ -77,19 +79,6 @@ public class ReadPage extends JPanel {
 		lbCategory.setBounds(74, 254, 75, 15);
 		add(lbCategory);
 		
-		JLabel lbPicture = new JLabel("Recipe Picture");
-		lbPicture.setBounds(74, 279, 113, 15);
-		add(lbPicture);
-		
-		JLabel lbDescription = new JLabel("Description");
-		lbDescription.setBounds(74, 350, 89, 15);
-		add(lbDescription);
-		
-		tfPicture = new JTextField();
-		tfPicture.setColumns(10);
-		tfPicture.setBounds(242, 276, 219, 21);
-		add(tfPicture);
-		
 		tfCategory = new JTextField();
 		tfCategory.setColumns(10);
 		tfCategory.setBounds(242, 251, 219, 21);
@@ -114,10 +103,6 @@ public class ReadPage extends JPanel {
 		tfRecipeTitle.setColumns(10);
 		tfRecipeTitle.setBounds(242, 126, 219, 21);
 		add(tfRecipeTitle);
-		
-		JTextArea taDescription = new JTextArea();
-		taDescription.setBounds(242, 310, 219, 92);
-		add(taDescription);
 		
 		JLabel lbChefDetail = new JLabel("Chef Information:");
 		lbChefDetail.setFont(new Font("Source Sans Pro", Font.PLAIN, 14));
@@ -180,6 +165,27 @@ public class ReadPage extends JPanel {
 		choiceYesorNo.add("Yes");
 		choiceYesorNo.add("No");
 		
+		JLabel lbPicture = new JLabel("Recipe Picture");
+		lbPicture.setBounds(74, 339, 113, 15);
+		add(lbPicture);
+		
+		JLabel lbImg = new JLabel("Recipe Image Here");
+		lbImg.setBackground(Color.WHITE);
+		lbImg.setBounds(242, 279, 148, 157);
+		add(lbImg);
+		
+		JLabel lbFilePath = new JLabel("File Path");
+		lbFilePath.setBounds(400, 339, 75, 15);
+		add(lbFilePath);
+		
+		JTextArea taDescription = new JTextArea();
+		taDescription.setBounds(242, 446, 219, 63);
+		add(taDescription);
+		
+		JLabel lbDescription = new JLabel("Description");
+		lbDescription.setBounds(74, 468, 89, 15);
+		add(lbDescription);
+		
 		JButton btnShow = new JButton("Show");
 		btnShow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -197,7 +203,9 @@ public class ReadPage extends JPanel {
 				tfNoOfIngredients.setText(""+showedRecipe.getNo_of_Ingredients());
 				tfCategory.setText(showedRecipe.getCategory());
 				taDescription.setText(showedRecipe.getDescription());
-				tfPicture.setText(showedRecipe.getRecipePicture().getPath());
+				lbFilePath.setText(showedRecipe.getRecipePicture().getAbsolutePath());
+				Image image =new ImageIcon(showedRecipe.getRecipePicture().getAbsolutePath()).getImage().getScaledInstance(lbImg.getWidth(), lbImg.getHeight(), Image.SCALE_SMOOTH);
+				lbImg.setIcon(new ImageIcon(image));
 				tfFirstName.setText(showedChef.getFirstName());
 				tfLastName.setText(showedChef.getLastName());
 				tfUsername.setText(showedChef.getUserName());
@@ -223,7 +231,9 @@ public class ReadPage extends JPanel {
 		tfNoOfIngredients.setText(""+recipe.getNo_of_Ingredients());
 		tfCategory.setText(recipe.getCategory());
 		taDescription.setText(recipe.getDescription());
-		tfPicture.setText(recipe.getRecipePicture().getPath());
+		lbFilePath.setText(recipe.getRecipePicture().getAbsolutePath());
+		Image image =new ImageIcon(recipe.getRecipePicture().getAbsolutePath()).getImage().getScaledInstance(lbImg.getWidth(), lbImg.getHeight(), Image.SCALE_SMOOTH);
+		lbImg.setIcon(new ImageIcon(image));
 		tfFirstName.setText(chef.getFirstName());
 		tfLastName.setText(chef.getLastName());
 		tfUsername.setText(chef.getUserName());

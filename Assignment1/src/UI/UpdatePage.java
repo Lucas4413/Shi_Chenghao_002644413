@@ -5,15 +5,20 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.Image;
 import java.util.ArrayList;
 
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import Model.Chef;
 import Model.Recipe;
 
 import javax.swing.JTextArea;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+
 import java.awt.Choice;
 import java.awt.Checkbox;
 import java.awt.event.ActionListener;
@@ -24,7 +29,6 @@ import UI.MainJFrame;
 import java.awt.Color;
 
 public class UpdatePage extends JPanel {
-	private JTextField tfPicture;
 	private JTextField tfCategory;
 	private JTextField tfNoOfIngredients;
 	private JTextField tfDifficulty;
@@ -82,19 +86,6 @@ public class UpdatePage extends JPanel {
 		lbCategory.setBounds(74, 258, 75, 15);
 		add(lbCategory);
 		
-		JLabel lbPicture = new JLabel("Recipe Picture");
-		lbPicture.setBounds(74, 283, 113, 15);
-		add(lbPicture);
-		
-		JLabel lbDescription = new JLabel("Description");
-		lbDescription.setBounds(74, 354, 89, 15);
-		add(lbDescription);
-		
-		tfPicture = new JTextField();
-		tfPicture.setColumns(10);
-		tfPicture.setBounds(242, 280, 219, 21);
-		add(tfPicture);
-		
 		tfCategory = new JTextField();
 		tfCategory.setColumns(10);
 		tfCategory.setBounds(242, 255, 219, 21);
@@ -119,10 +110,6 @@ public class UpdatePage extends JPanel {
 		tfRecipeTitle.setColumns(10);
 		tfRecipeTitle.setBounds(242, 130, 219, 21);
 		add(tfRecipeTitle);
-		
-		JTextArea taDescription = new JTextArea();
-		taDescription.setBounds(242, 314, 219, 92);
-		add(taDescription);
 		
 		JLabel lbChefDetail = new JLabel("Chef Information:");
 		lbChefDetail.setFont(new Font("Source Sans Pro", Font.PLAIN, 14));
@@ -174,6 +161,56 @@ public class UpdatePage extends JPanel {
 		tfFirstName.setBounds(737, 130, 219, 21);
 		add(tfFirstName);
 		
+		JLabel lbPicture = new JLabel("Recipe Picture");
+		lbPicture.setBounds(74, 343, 113, 15);
+		add(lbPicture);
+		
+		JLabel lbImg = new JLabel("Recipe Image Here");
+		lbImg.setBackground(Color.WHITE);
+		lbImg.setBounds(242, 283, 148, 157);
+		add(lbImg);
+		
+		JLabel lbFilePath = new JLabel("File Path");
+		lbFilePath.setBounds(400, 343, 75, 15);
+		add(lbFilePath);
+		
+		JButton btnShowImg = new JButton("Browser");
+		btnShowImg.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser chooseRecipeImage = new JFileChooser();
+				
+				FileNameExtensionFilter fnef = new FileNameExtensionFilter("IMAGES", "png", "jpg", "jpeg");
+				chooseRecipeImage.addChoosableFileFilter(fnef);
+				
+				int showOptionDialog = chooseRecipeImage.showOpenDialog(null);
+				if (showOptionDialog == JFileChooser.APPROVE_OPTION) {
+					File selectedImageFile = chooseRecipeImage.getSelectedFile();
+					String imagePath = selectedImageFile.getAbsolutePath();
+					String prefix = imagePath.substring(imagePath.lastIndexOf(".")+1);
+					if (!prefix.equals("png")&&!prefix.equals("jpg")&&!prefix.equals("jpeg")) {
+						JOptionPane.showMessageDialog(null, "Please select a image file !");
+						return;
+					};
+					
+					lbFilePath.setText(imagePath);
+					
+					Image image =new ImageIcon(imagePath).getImage().getScaledInstance(lbImg.getWidth(), lbImg.getHeight(), Image.SCALE_SMOOTH);
+					
+					lbImg.setIcon(new ImageIcon(image));
+				}
+			}
+		});
+		btnShowImg.setBounds(400, 373, 93, 23);
+		add(btnShowImg);
+		
+		JTextArea taDescription = new JTextArea();
+		taDescription.setBounds(242, 450, 219, 63);
+		add(taDescription);
+		
+		JLabel lbDescription = new JLabel("Description");
+		lbDescription.setBounds(74, 472, 89, 15);
+		add(lbDescription);
+		
 		Choice choice = new Choice();
 		choice.setFont(new Font("Source Sans Pro", Font.PLAIN, 16));
 		choice.setBounds(569, 318, 158, 27);
@@ -205,7 +242,9 @@ public class UpdatePage extends JPanel {
 				tfNoOfIngredients.setText(""+showedRecipe.getNo_of_Ingredients());
 				tfCategory.setText(showedRecipe.getCategory());
 				taDescription.setText(showedRecipe.getDescription());
-				tfPicture.setText(showedRecipe.getRecipePicture().getPath());
+				lbFilePath.setText(showedRecipe.getRecipePicture().getAbsolutePath());
+				Image image =new ImageIcon(showedRecipe.getRecipePicture().getAbsolutePath()).getImage().getScaledInstance(lbImg.getWidth(), lbImg.getHeight(), Image.SCALE_SMOOTH);
+				lbImg.setIcon(new ImageIcon(image));
 				tfFirstName.setText(showedChef.getFirstName());
 				tfLastName.setText(showedChef.getLastName());
 				tfUsername.setText(showedChef.getUserName());
@@ -226,7 +265,7 @@ public class UpdatePage extends JPanel {
 				String difficulty = tfDifficulty.getText();
 				String noOfIngredients = tfNoOfIngredients.getText();
 				String category = tfNoOfServing.getText();
-				String picture = tfPicture.getText();
+				String picture = lbFilePath.getText();
 				String description = taDescription.getText();
 				String firstName = tfFirstName.getText();
 				String lastName = tfLastName.getText();
@@ -275,7 +314,7 @@ public class UpdatePage extends JPanel {
 				}else {
 					recipe.setIsGlutenFree(false);
 				}
-				recipe.setRecipePicture(new File(tfPicture.getText()));
+				recipe.setRecipePicture(new File(lbFilePath.getText()));
 				recipe.setNo_of_Ingredients(Integer.valueOf(noOfIngredients));
 				recipe.setNo_of_Serving(Integer.valueOf(noOfServing));
 				recipe.setTitle(recipeTitle);
@@ -300,13 +339,14 @@ public class UpdatePage extends JPanel {
 		tfNoOfIngredients.setText(""+recipe.getNo_of_Ingredients());
 		tfCategory.setText(recipe.getCategory());
 		taDescription.setText(recipe.getDescription());
-		tfPicture.setText(recipe.getRecipePicture().getPath());
+		lbFilePath.setText(recipe.getRecipePicture().getAbsolutePath());
+		Image image =new ImageIcon(recipe.getRecipePicture().getAbsolutePath()).getImage().getScaledInstance(lbImg.getWidth(), lbImg.getHeight(), Image.SCALE_SMOOTH);
+		lbImg.setIcon(new ImageIcon(image));
 		tfFirstName.setText(chef.getFirstName());
 		tfLastName.setText(chef.getLastName());
 		tfUsername.setText(chef.getUserName());
 		tfEmail.setText(chef.getEmail());
 		tfPhone.setText(chef.getPhoneNumber());
-		
 
 	}
 }

@@ -5,6 +5,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.JTextField;
 
 import Model.Recipe;
@@ -15,6 +17,8 @@ import java.awt.Color;
 import java.awt.Component;
 import javax.swing.Box;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
@@ -22,12 +26,14 @@ import java.awt.event.ActionEvent;
 import java.awt.Checkbox;
 import java.awt.Choice;
 import javax.swing.DropMode;
+import javax.swing.ImageIcon;
+
 import UI.MainJFrame;
 import java.awt.SystemColor;
 import javax.swing.UIManager;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class CreatePage extends JPanel {
-	private JTextField tfPicture;
 	private JTextField tfCategory;
 	private JTextField tfNoOfIngredients;
 	private JTextField tfDifficulty;
@@ -82,17 +88,12 @@ public class CreatePage extends JPanel {
 		add(lbCategory);
 		
 		JLabel lbPicture = new JLabel("Recipe Picture");
-		lbPicture.setBounds(74, 276, 113, 15);
+		lbPicture.setBounds(74, 336, 113, 15);
 		add(lbPicture);
 		
 		JLabel lbDescription = new JLabel("Description");
-		lbDescription.setBounds(74, 347, 89, 15);
+		lbDescription.setBounds(74, 465, 89, 15);
 		add(lbDescription);
-		
-		tfPicture = new JTextField();
-		tfPicture.setBounds(242, 273, 219, 21);
-		add(tfPicture);
-		tfPicture.setColumns(10);
 		
 		tfCategory = new JTextField();
 		tfCategory.setBounds(242, 248, 219, 21);
@@ -120,7 +121,7 @@ public class CreatePage extends JPanel {
 		tfRecipeTitle.setColumns(10);
 		
 		JTextArea taDescription = new JTextArea();
-		taDescription.setBounds(242, 307, 219, 92);
+		taDescription.setBounds(242, 443, 219, 63);
 		add(taDescription);
 		
 		JLabel lbChefDetail = new JLabel("Chef Information:");
@@ -180,6 +181,44 @@ public class CreatePage extends JPanel {
 		choiceYesorNo.add("Yes");
 		choiceYesorNo.add("No");
 		
+		JLabel lbImg = new JLabel("Recipe Image Here");
+		lbImg.setBackground(new Color(255, 255, 255));
+		lbImg.setBounds(242, 276, 148, 157);
+		add(lbImg);
+		
+		JLabel lbFilePath = new JLabel("File Path");
+		lbFilePath.setBounds(400, 336, 75, 15);
+		add(lbFilePath);
+		
+		JButton btnShowImg = new JButton("Browser");
+		btnShowImg.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser chooseRecipeImage = new JFileChooser();
+				
+				FileNameExtensionFilter fnef = new FileNameExtensionFilter("IMAGES", "png", "jpg", "jpeg");
+				chooseRecipeImage.addChoosableFileFilter(fnef);
+				
+				int showOptionDialog = chooseRecipeImage.showOpenDialog(null);
+				if (showOptionDialog == JFileChooser.APPROVE_OPTION) {
+					File selectedImageFile = chooseRecipeImage.getSelectedFile();
+					String imagePath = selectedImageFile.getAbsolutePath();
+					String prefix = imagePath.substring(imagePath.lastIndexOf(".")+1);
+					if (!prefix.equals("png")&&!prefix.equals("jpg")&&!prefix.equals("jpeg")) {
+						JOptionPane.showMessageDialog(null, "Please select a image file !");
+						return;
+					};
+					
+					lbFilePath.setText(imagePath);
+					
+					Image image =new ImageIcon(imagePath).getImage().getScaledInstance(lbImg.getWidth(), lbImg.getHeight(), Image.SCALE_SMOOTH);
+					
+					lbImg.setIcon(new ImageIcon(image));
+				}
+			}
+		});
+		btnShowImg.setBounds(400, 366, 93, 23);
+		add(btnShowImg);
+		
 		JButton btnCreate = new JButton("Create");
 		btnCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -189,7 +228,7 @@ public class CreatePage extends JPanel {
 				String difficulty = tfDifficulty.getText();
 				String noOfIngredients = tfNoOfIngredients.getText();
 				String category = tfNoOfServing.getText();
-				String picture = tfPicture.getText();
+				String picture = lbFilePath.getText();
 				String description = taDescription.getText();
 				String firstName = tfFirstName.getText();
 				String lastName = tfLastName.getText();
@@ -239,7 +278,7 @@ public class CreatePage extends JPanel {
 				}else {
 					recipe.setIsGlutenFree(false);
 				}
-				recipe.setRecipePicture(new File(tfPicture.getText()));
+				recipe.setRecipePicture(new File(lbFilePath.getText()));
 				recipe.setNo_of_Ingredients(Integer.valueOf(noOfIngredients));
 				recipe.setNo_of_Serving(Integer.valueOf(noOfServing));
 				recipe.setTitle(recipeTitle);
@@ -252,7 +291,6 @@ public class CreatePage extends JPanel {
 		btnCreate.setFont(new Font("Source Sans Pro", Font.PLAIN, 16));
 		btnCreate.setBounds(699, 320, 93, 42);
 		add(btnCreate);
-		
 		
 
 	}
