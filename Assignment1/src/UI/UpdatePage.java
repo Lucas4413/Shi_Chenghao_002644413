@@ -295,8 +295,8 @@ public class UpdatePage extends JPanel {
 				}else if (!mainJFrame.isDigit(phone)) {
 					JOptionPane.showMessageDialog(null, "Please enter an valid phone number!");
 					return;
-				}else if (!email.contains("@") || !email.contains(".com")) {
-					JOptionPane.showMessageDialog(null, "The email address should contain \"@\" and \".com\"!");
+				}else if (!mainJFrame.checkEmail(email)) {
+					JOptionPane.showMessageDialog(null, "Please enter a valid email address!");
 					return;
 				}else if (Float.parseFloat(difficulty) < 1 || Float.parseFloat(difficulty) > 5) {
 					JOptionPane.showMessageDialog(null, "The Difficulty Level should be between 1 to 5!");
