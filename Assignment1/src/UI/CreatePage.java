@@ -23,6 +23,8 @@ import java.awt.Checkbox;
 import java.awt.Choice;
 import javax.swing.DropMode;
 import UI.MainJFrame;
+import java.awt.SystemColor;
+import javax.swing.UIManager;
 
 public class CreatePage extends JPanel {
 	private JTextField tfPicture;
@@ -42,6 +44,7 @@ public class CreatePage extends JPanel {
 	 * Create the panel.
 	 */
 	public CreatePage(ArrayList<Recipe> recipes, ArrayList<String> usernames) {
+		setBackground(Color.ORANGE);
 		setLayout(null);
 		
 		JLabel lbtitle = new JLabel("Create Your Recipe ");
@@ -126,6 +129,7 @@ public class CreatePage extends JPanel {
 		add(lbChefDetail);
 		
 		JLabel lbFirstName = new JLabel("Chef's First Name");
+		lbFirstName.setForeground(new Color(0, 0, 0));
 		lbFirstName.setBounds(569, 126, 113, 15);
 		add(lbFirstName);
 		
@@ -219,7 +223,7 @@ public class CreatePage extends JPanel {
 					JOptionPane.showMessageDialog(null, "Please enter an valid phone number!");
 					return;
 				}else if (!email.contains("@") || !email.contains(".com")) {
-					JOptionPane.showMessageDialog(null, "Please enter an valid email address!");
+					JOptionPane.showMessageDialog(null, "The email address should contain \"@\" and \".com\"!");
 					return;
 				}else if (Float.parseFloat(difficulty) < 1 || Float.parseFloat(difficulty) > 5) {
 					JOptionPane.showMessageDialog(null, "The Difficulty Level should be between 1 to 5!");

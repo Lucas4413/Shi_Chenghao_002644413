@@ -21,6 +21,7 @@ import java.io.File;
 import java.awt.event.ActionEvent;
 
 import UI.MainJFrame;
+import java.awt.Color;
 
 public class UpdatePage extends JPanel {
 	private JTextField tfPicture;
@@ -40,6 +41,7 @@ public class UpdatePage extends JPanel {
 	 * Create the panel.
 	 */
 	public UpdatePage(ArrayList<Recipe> recipes, ArrayList<String> usernames) {
+		setBackground(Color.PINK);
 		setLayout(null);
 		
 		//display the first recipe in the arraylist
@@ -251,14 +253,11 @@ public class UpdatePage extends JPanel {
 						  mainJFrame.hasDigit(firstName) || mainJFrame.hasDigit(lastName)) {
 					JOptionPane.showMessageDialog(null, "Chef's name should not contain any special symbols or numbers!");
 					return;
-				}else if (usernames.contains(username)) {
-					JOptionPane.showMessageDialog(null, "The Username should be unique!");
-					return;
 				}else if (!mainJFrame.isDigit(phone)) {
 					JOptionPane.showMessageDialog(null, "Please enter an valid phone number!");
 					return;
 				}else if (!email.contains("@") || !email.contains(".com")) {
-					JOptionPane.showMessageDialog(null, "Please enter an valid email address!");
+					JOptionPane.showMessageDialog(null, "The email address should contain \"@\" and \".com\"!");
 					return;
 				}else if (Float.parseFloat(difficulty) < 1 || Float.parseFloat(difficulty) > 5) {
 					JOptionPane.showMessageDialog(null, "The Difficulty Level should be between 1 to 5!");

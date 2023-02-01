@@ -17,6 +17,7 @@ import java.awt.Checkbox;
 import java.awt.event.ActionListener;
 import java.lang.annotation.Target;
 import java.awt.event.ActionEvent;
+import java.awt.SystemColor;
 
 public class ReadPage extends JPanel {
 	private JTextField tfPicture;
@@ -35,6 +36,7 @@ public class ReadPage extends JPanel {
 	 * Create the panel.
 	 */
 	public ReadPage(ArrayList<Recipe> recipes, ArrayList<String> usernames) {
+		setBackground(SystemColor.activeCaption);
 		setLayout(null);
 		
 		//display the first recipe in the arraylist

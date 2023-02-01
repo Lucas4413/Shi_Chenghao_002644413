@@ -3,6 +3,7 @@ package UI;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -16,6 +17,8 @@ import java.awt.event.ActionEvent;
 
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import java.awt.Color;
+import java.awt.SystemColor;
 
 public class MainJFrame extends JFrame {
 
@@ -117,33 +120,44 @@ public class MainJFrame extends JFrame {
 		Control.setLayout(null);
 		
 		JButton btnCreate = new JButton("Create");
+		btnCreate.setBackground(Color.ORANGE);
 		btnCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CreatePage createPage = new CreatePage(recipes, usernames);
 				splitPane.setRightComponent(createPage);
 			}
 		});
-		btnCreate.setBounds(47, 48, 93, 23);
+		btnCreate.setBounds(83, 78, 93, 23);
 		Control.add(btnCreate);
 		
 		JButton btnRead = new JButton("Read");
+		btnRead.setBackground(SystemColor.activeCaption);
 		btnRead.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(recipes.size() == 0) {
+					JOptionPane.showMessageDialog(null, "You have not created any recipe yet!");
+					return;
+				}
 				ReadPage readPage = new ReadPage(recipes, usernames);
 				splitPane.setRightComponent(readPage);
 			}
 		});
-		btnRead.setBounds(47, 106, 93, 23);
+		btnRead.setBounds(83, 136, 93, 23);
 		Control.add(btnRead);
 		
 		JButton btnUpdate = new JButton("Update");
+		btnUpdate.setBackground(Color.PINK);
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(recipes.size() == 0) {
+					JOptionPane.showMessageDialog(null, "You have not created any recipe yet!");
+					return;
+				}
 				UpdatePage updatePage = new UpdatePage(recipes, usernames);
 				splitPane.setRightComponent(updatePage);
 			}
 		});
-		btnUpdate.setBounds(47, 170, 93, 23);
+		btnUpdate.setBounds(83, 200, 93, 23);
 		Control.add(btnUpdate);
 		
 		JPanel Display = new JPanel();
