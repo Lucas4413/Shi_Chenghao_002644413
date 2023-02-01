@@ -76,6 +76,9 @@ public class MainJFrame extends JFrame {
 	
 	
 	public Boolean isDigit(String s) {
+		if(s.length() < 10) {
+			return false;
+		}
 		Pattern p = Pattern.compile("[0-9]{1,}");  
 	    Matcher m = p.matcher(s);  
 	    return m.matches(); 

@@ -242,11 +242,11 @@ public class CreatePage extends JPanel {
 				   mainJFrame.isEmptyOrNull(username) || mainJFrame.isEmptyOrNull(email) | mainJFrame.isEmptyOrNull(phone)) {
 					JOptionPane.showMessageDialog(null, "Please fill out all the content!");
 					return;
-				}else if (!mainJFrame.isInteger(noOfIngredients)) {
-					JOptionPane.showMessageDialog(null, "No. of Ingredient should be an integer!");
+				}else if (!mainJFrame.isInteger(noOfIngredients) || noOfIngredients.contains("-") || noOfIngredients.equals("0")) {
+					JOptionPane.showMessageDialog(null, "No. of Ingredient should be an positive integer!");
 					return;
-				}else if (!mainJFrame.isInteger(noOfServing)) {
-					JOptionPane.showMessageDialog(null, "No. of Serving should be an integer!");
+				}else if (!mainJFrame.isInteger(noOfServing) || noOfServing.contains("-") || noOfServing.equals("0")) {
+					JOptionPane.showMessageDialog(null, "No. of Serving should be an positive integer!");
 					return;
 				}else if (!mainJFrame.isFloat(difficulty)) {
 					JOptionPane.showMessageDialog(null, "The Difficulty Level should be a number!");
