@@ -21,4 +21,11 @@ public class Business {
 	public void setInsurancePlans(InsurancePlans insurancePlans) {
 		this.insurancePlans = insurancePlans;
 	}
+	
+	public Boolean isEmptyOrNull(String s) {
+		if(s==null || s.length()==0) {
+			return true;
+		}
+		return false;
+	}
 }
