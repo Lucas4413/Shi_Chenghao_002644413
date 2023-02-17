@@ -1,10 +1,12 @@
 package Model;
 
+import java.util.Date;
+
 public class Applicant {
 	private String ID;
 	private String firstName;
 	private String lastName;
-	private String date;
+	private Date date;
 	private Pet pet;
 	
 	public Applicant() {
@@ -35,13 +37,14 @@ public class Applicant {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
-	public void setDate(String date) {
+
+	public void setDate(Date date) {
 		this.date = date;
 	}
-	
+
 	public void createPet(String name,int age,String gender,String petType,String breed) {
 		Pet pet = new Pet();
 		pet.setAge(age);

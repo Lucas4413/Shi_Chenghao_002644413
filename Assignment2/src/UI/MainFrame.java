@@ -68,6 +68,11 @@ public class MainFrame extends JFrame {
 		panel.add(btnInsurancePlans);
 		
 		JButton btnManageApplication = new JButton("Manage Applications");
+		btnManageApplication.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				splitPane.setRightComponent(new ApplicantCreatePanel(business));
+			}
+		});
 		btnManageApplication.setBounds(10, 125, 226, 23);
 		panel.add(btnManageApplication);
 		

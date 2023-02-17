@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ApplicantsDirectory {
 	private ArrayList<Applicant> applicants;
@@ -17,7 +18,7 @@ public class ApplicantsDirectory {
 		this.applicants = applicants;
 	}
 	
-	public void createApplicant(String id, String fn, String ln, String date) {
+	public void createApplicant(String id, String fn, String ln, Date date) {
 		Applicant applicant = new Applicant();
 		applicant.setDate(date);
 		applicant.setFirstName(fn);
