@@ -18,6 +18,8 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.SystemColor;
+import java.awt.Font;
 
 public class AssignmentPanel extends JPanel {
 	private JTable table;
@@ -34,6 +36,7 @@ public class AssignmentPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public AssignmentPanel(Business business) {
+		setBackground(SystemColor.inactiveCaptionBorder);
 		this.business = business;
 		this.applicantsDirectory = this.business.getApplicantsDirectory();
 		this.insurancePlans = this.business.getInsurancePlans();
@@ -84,6 +87,7 @@ public class AssignmentPanel extends JPanel {
 		add(lblNewLabel_3);
 		
 		tfCostPerMonth = new JTextField();
+		tfCostPerMonth.setFont(new Font("宋体", Font.BOLD, 12));
 		tfCostPerMonth.setEnabled(false);
 		tfCostPerMonth.setColumns(10);
 		tfCostPerMonth.setBounds(256, 454, 188, 21);
@@ -94,6 +98,7 @@ public class AssignmentPanel extends JPanel {
 		add(lblNewLabel_2_1);
 		
 		tfPlanName = new JTextField();
+		tfPlanName.setFont(new Font("宋体", Font.BOLD, 12));
 		tfPlanName.setEnabled(false);
 		tfPlanName.setColumns(10);
 		tfPlanName.setBounds(602, 395, 188, 21);
@@ -101,6 +106,7 @@ public class AssignmentPanel extends JPanel {
 		
 		tfCostPerYear = new JTextField();
 		tfCostPerYear.setEnabled(false);
+		tfCostPerYear.setFont(new Font("宋体", Font.BOLD, 12));
 		tfCostPerYear.setColumns(10);
 		tfCostPerYear.setBounds(602, 454, 188, 21);
 		add(tfCostPerYear);

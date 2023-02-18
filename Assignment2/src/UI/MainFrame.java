@@ -12,6 +12,8 @@ import javax.swing.JSplitPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
+import java.awt.SystemColor;
 
 public class MainFrame extends JFrame {
 
@@ -58,40 +60,44 @@ public class MainFrame extends JFrame {
 		panel.setLayout(null);
 		
 		JButton btnInsurancePlans = new JButton("Manage Insurance Plans");
+		btnInsurancePlans.setBackground(Color.ORANGE);
 		btnInsurancePlans.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				InsurancePanel insurancePanel = new InsurancePanel(business);
 				splitPane.setRightComponent(insurancePanel);
 			}
 		});
-		btnInsurancePlans.setBounds(10, 54, 226, 23);
+		btnInsurancePlans.setBounds(43, 53, 226, 23);
 		panel.add(btnInsurancePlans);
 		
 		JButton btnManageApplication = new JButton("Manage Applications");
+		btnManageApplication.setBackground(Color.PINK);
 		btnManageApplication.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				splitPane.setRightComponent(new ApplicantCreatePanel(business));
 			}
 		});
-		btnManageApplication.setBounds(10, 125, 226, 23);
+		btnManageApplication.setBounds(43, 124, 226, 23);
 		panel.add(btnManageApplication);
 		
 		JButton btnManageVaccines = new JButton("Manage Vaccines");
+		btnManageVaccines.setBackground(SystemColor.activeCaption);
 		btnManageVaccines.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				splitPane.setRightComponent(new VaccineMangementPanel(business));
 			}
 		});
-		btnManageVaccines.setBounds(10, 203, 226, 23);
+		btnManageVaccines.setBounds(43, 202, 226, 23);
 		panel.add(btnManageVaccines);
 		
 		JButton btnAssignInsurance = new JButton("Assign Insurance");
+		btnAssignInsurance.setBackground(SystemColor.inactiveCaptionBorder);
 		btnAssignInsurance.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				splitPane.setRightComponent(new AssignmentPanel(business));
 			}
 		});
-		btnAssignInsurance.setBounds(10, 279, 226, 23);
+		btnAssignInsurance.setBounds(43, 278, 226, 23);
 		panel.add(btnAssignInsurance);
 		
 		JPanel panel_1 = new JPanel();

@@ -17,6 +17,8 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
+import java.awt.Font;
 
 public class InsurancePanel extends JPanel {
 	private Business business;
@@ -32,6 +34,7 @@ public class InsurancePanel extends JPanel {
 	 * Create the panel.
 	 */
 	public InsurancePanel(Business business) {
+		setBackground(new Color(255, 200, 0));
 		this.business = business;
 		this.insurancePlans = this.business.getInsurancePlans();
 		
@@ -91,6 +94,7 @@ public class InsurancePanel extends JPanel {
 		add(lblCostPerMonth);
 		
 		tfCostPerYear = new JTextField();
+		tfCostPerYear.setFont(new Font("宋体", Font.BOLD, 12));
 		tfCostPerYear.setEnabled(false);
 		tfCostPerYear.setColumns(10);
 		tfCostPerYear.setBounds(191, 291, 166, 21);
@@ -117,14 +121,14 @@ public class InsurancePanel extends JPanel {
 				String cpm = tfCostPerMonth.getText();
 				String cpy = tfCostPerYear.getText();
 				
-				if(!business.isEmptyOrNull(cpm)&&!business.isEmptyOrNull(cpy)&&!business.isEmptyOrNull(name)) {
-					insurancePlans.createPlan(name, Float.parseFloat(cpm), Float.parseFloat(cpy));
+				if(business.isEmptyOrNull(cpm) || business.isEmptyOrNull(cpy) || business.isEmptyOrNull(name)) {
+					JOptionPane.showMessageDialog(null, "Please fill out all the content!");
+					return;
 				}else if (insurancePlans.searchByName(name)!= null) {
 					JOptionPane.showMessageDialog(null, "Please enter an unique plan name!");
 					return;
 				}else {
-					JOptionPane.showMessageDialog(null, "Please fill out all the content!");
-					return;
+					insurancePlans.createPlan(name, Float.parseFloat(cpm), Float.parseFloat(cpy));
 				}
 				display();
 			}
@@ -138,7 +142,7 @@ public class InsurancePanel extends JPanel {
 				int selectedRow = table.getSelectedRow();
 				Plan targetPlan = insurancePlans.getInsurancePlans().get(selectedRow);
 				selectedPlan = targetPlan;
-				lbSelectedID.setText(targetPlan.getID());
+				lbSelectedID.setText(selectedPlan.getID());
 				tfInsuranceName.setText(targetPlan.getPlanName());
 				tfCostPerMonth.setText(targetPlan.getCostPerMonth()+"");
 				tfCostPerYear.setText(targetPlan.getCostPerYear()+"");
@@ -167,22 +171,32 @@ public class InsurancePanel extends JPanel {
 		JButton btnUpdate = new JButton("Update");
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int selectedRow = table.getSelectedRow();
+				selectedPlan = insurancePlans.getInsurancePlans().get(selectedRow);
 				if(selectedPlan==null) {
 					JOptionPane.showMessageDialog(null, "You haven't select any plan yet");
 					return;
 				}else {
+					lbSelectedID.setText(selectedPlan.getID());
 					String name = tfInsuranceName.getText();
 					String cpm = tfCostPerMonth.getText();
 					String cpy = tfCostPerYear.getText();
 					
-					if(!business.isEmptyOrNull(cpm)&&!business.isEmptyOrNull(cpy)&&!business.isEmptyOrNull(name)) {
-						insurancePlans.updatePlan(selectedPlan, name, Float.parseFloat(cpm), Float.parseFloat(cpy));
-					}else if (insurancePlans.searchByName(name)!= null) {
-						JOptionPane.showMessageDialog(null, "Please enter an unique plan name!");
-						return;
-					}else {
+					if(business.isEmptyOrNull(cpm) || business.isEmptyOrNull(cpy) || business.isEmptyOrNull(name)) {
 						JOptionPane.showMessageDialog(null, "Please fill out all the content!");
 						return;
+					}else {
+						if(name.equals(selectedPlan.getPlanName())) {
+							insurancePlans.updatePlan(selectedPlan, name, Float.parseFloat(cpm), Float.parseFloat(cpy));
+						}else {
+							if(insurancePlans.searchByName(name)==null) {
+								insurancePlans.updatePlan(selectedPlan, name, Float.parseFloat(cpm), Float.parseFloat(cpy));
+							}else {
+								JOptionPane.showMessageDialog(null, "Please enter an unique plan name!");
+								return;
+							}
+						}
+						
 					}
 					display();
 				}

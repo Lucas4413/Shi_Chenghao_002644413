@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.SystemColor;
 
 public class VaccineMangementPanel extends JPanel {
 	private JTable table;
@@ -37,6 +38,7 @@ public class VaccineMangementPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public VaccineMangementPanel(Business business) {
+		setBackground(SystemColor.activeCaption);
 		this.business = business;
 		this.applicantsDirectory = this.business.getApplicantsDirectory();
 		
@@ -164,7 +166,7 @@ public class VaccineMangementPanel extends JPanel {
 				if(newName.equals(targetVaccine.getVaccineName())) {
 					selectedPet.updateVaccine(targetVaccine, newName, ifCourseComplete);
 				}else {
-					if(selectedPet.searchByName(newName)!=null) {
+					if(selectedPet.searchByName(newName)==null) {
 						selectedPet.updateVaccine(targetVaccine, newName, ifCourseComplete);
 					}else {
 						JOptionPane.showMessageDialog(null, "This kind of vaccine has been recorded");

@@ -24,6 +24,7 @@ import java.util.Locale;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.Color;
 
 public class ApplicantCreatePanel extends JPanel {
 	private JTable table;
@@ -44,6 +45,7 @@ public class ApplicantCreatePanel extends JPanel {
 	 * Create the panel.
 	 */
 	public ApplicantCreatePanel(Business business) {
+		setBackground(Color.PINK);
 		this.business = business;
 		this.applicantsDirectory = this.business.getApplicantsDirectory();
 		this.appsToDisplay = new ArrayList<Applicant>();
