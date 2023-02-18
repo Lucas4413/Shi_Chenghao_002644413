@@ -186,6 +186,8 @@ public class InsurancePanel extends JPanel {
 					}
 					display();
 				}
+				selectedPlan = null;
+				lbSelectedID.setText("");
 			}
 		});
 		btnUpdate.setBounds(671, 510, 93, 23);

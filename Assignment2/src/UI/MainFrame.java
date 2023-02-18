@@ -41,7 +41,7 @@ public class MainFrame extends JFrame {
 		this.business = new Business();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1089, 729);
+		setBounds(100, 100, 1296, 729);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -50,7 +50,7 @@ public class MainFrame extends JFrame {
 		
 		JSplitPane splitPane = new JSplitPane();
 		splitPane.setResizeWeight(0.25);
-		splitPane.setBounds(0, 0, 1073, 690);
+		splitPane.setBounds(0, 0, 1280, 690);
 		contentPane.add(splitPane);
 		
 		JPanel panel = new JPanel();
@@ -77,10 +77,20 @@ public class MainFrame extends JFrame {
 		panel.add(btnManageApplication);
 		
 		JButton btnManageVaccines = new JButton("Manage Vaccines");
+		btnManageVaccines.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				splitPane.setRightComponent(new VaccineMangementPanel(business));
+			}
+		});
 		btnManageVaccines.setBounds(10, 203, 226, 23);
 		panel.add(btnManageVaccines);
 		
 		JButton btnAssignInsurance = new JButton("Assign Insurance");
+		btnAssignInsurance.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				splitPane.setRightComponent(new AssignmentPanel(business));
+			}
+		});
 		btnAssignInsurance.setBounds(10, 279, 226, 23);
 		panel.add(btnAssignInsurance);
 		

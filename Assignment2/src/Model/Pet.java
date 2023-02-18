@@ -18,6 +18,7 @@ public class Pet {
 		this.gender = gender;
 		this.petType = type;
 		this.breed = breed;
+		this.insurancePlan = new Plan();
 	}
 	
 	public Pet() {
@@ -74,6 +75,15 @@ public class Pet {
 		this.vaccines.add(vaccine);
 	}
 	
+	public void deleteVaccine(String name) {
+		this.vaccines.remove(searchByName(name));
+	}
+	
+	public void updateVaccine(Vaccine vaccine, String name, Boolean ifCC) {
+		vaccine.setVaccineName(name);
+		vaccine.setIsCourseCompleted(ifCC);
+	}
+	
 	public Boolean isInteger(String s) {
 		try {
 			Integer.valueOf(s);
@@ -91,5 +101,14 @@ public class Pet {
 		this.gender = gender;
 		this.petType = type;
 		this.breed = breed;
+	}
+	
+	public Vaccine searchByName(String s) {
+		for(Vaccine v:this.vaccines) {
+			if(v.getVaccineName().equals(s)) {
+				return v;
+			}
+		}
+		return null;
 	}
 }
