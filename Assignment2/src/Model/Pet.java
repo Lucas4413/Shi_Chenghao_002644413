@@ -11,6 +11,15 @@ public class Pet {
 	private ArrayList<Vaccine> vaccines;
 	private Plan insurancePlan;
 	
+	public Pet(String name, int age, String gender, String type, String breed) {
+		this.vaccines = new ArrayList<Vaccine>();
+		this.name = name;
+		this.age = age;
+		this.gender = gender;
+		this.petType = type;
+		this.breed = breed;
+	}
+	
 	public Pet() {
 		this.vaccines = new ArrayList<Vaccine>();
 	}
@@ -73,5 +82,14 @@ public class Pet {
 			// TODO: handle exception
 			return false;
 		}
+	}
+	
+	public void update(String name, int age, String gender, String type, String breed) {
+		this.vaccines = new ArrayList<Vaccine>();
+		this.name = name;
+		this.age = age;
+		this.gender = gender;
+		this.petType = type;
+		this.breed = breed;
 	}
 }

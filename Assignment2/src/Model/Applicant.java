@@ -1,14 +1,25 @@
 package Model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class Applicant {
 	private String ID;
 	private String firstName;
 	private String lastName;
+	private String fullName;
 	private Date date;
 	private Pet pet;
 	
+	public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
 	public Applicant() {
 		this.pet = new Pet();
 	}
@@ -53,5 +64,21 @@ public class Applicant {
 		pet.setName(name);
 		pet.setPetType(petType);
 		this.pet = pet;
+	}
+	
+	public String dateToString() {
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+		return simpleDateFormat.format(this.date);
+	}
+	
+	public Date stringToDate(String string) {
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+		try {
+			Date date = simpleDateFormat.parse(string);
+			return date;
+		} catch (Exception e) {
+			// TODO: handle exception
+			return null;
+		}
 	}
 }
