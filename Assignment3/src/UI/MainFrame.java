@@ -44,7 +44,7 @@ public class MainFrame extends JFrame {
 	}
 	
 	public MainFrame(Application business) {
-		this.business = business;
+		this.business = new Application();
 		this.accountDirectory = this.business.getAccountDirectory();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -108,6 +108,7 @@ public class MainFrame extends JFrame {
 		});
 		btnRegister.setBounds(535, 299, 93, 23);
 		contentPane.add(btnRegister);
+		choice.add("admin");
 		choice.add("manager");
 		choice.add("customer");
 		choice.add("librarian");

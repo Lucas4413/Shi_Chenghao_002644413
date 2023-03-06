@@ -2,12 +2,13 @@ package Business;
 
 import javax.swing.JFrame;
 
+import Role.Role;
 import UI.adminWorkArea.AdminFrame;
 import UI.agentWorkArea.LibrarianFrame;
 import UI.customerWorkArea.CustomerFrame;
 import UI.managerWorkArea.BranchManagerFrame;
 
-public class Account {
+public class Account{
 	private String username;
 	private String password;
 	private String accountId;

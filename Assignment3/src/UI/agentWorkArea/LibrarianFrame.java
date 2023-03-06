@@ -8,7 +8,7 @@ import javax.swing.border.EmptyBorder;
 
 import Business.Account;
 import Business.Application;
-import Services.MasterRequestDirectory;
+import Services.RequestDirectory;
 import Services.Request;
 import UI.MainFrame;
 import UI.adminWorkArea.AdminFrame;
@@ -28,7 +28,7 @@ public class LibrarianFrame extends JFrame {
 	private Application business;
 	private Account account;
 	private DefaultTableModel tableModel;
-	private MasterRequestDirectory masterOrderDirectory;
+	private RequestDirectory masterOrderDirectory;
 	private JTable table;
 
 	/**
@@ -53,7 +53,7 @@ public class LibrarianFrame extends JFrame {
 	public LibrarianFrame(Application business, Account account) {
 		this.business = business;
 		this.account = account;
-		this.masterOrderDirectory = business.getMasterOrderDirectory();
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 663, 608);
 		contentPane = new JPanel();
@@ -135,7 +135,6 @@ public class LibrarianFrame extends JFrame {
 				}
 				String selectedId = table.getValueAt(table.getSelectedRow(), 0)+"";
 				masterOrderDirectory.findById(selectedId).setStatus("approved");
-				masterOrderDirectory.findById(selectedId).getBook().setStatus("rented");
 				populate();
 			}
 		});
@@ -168,7 +167,7 @@ public class LibrarianFrame extends JFrame {
 				}
 				String selectedId = table.getValueAt(table.getSelectedRow(), 0)+"";
 				masterOrderDirectory.findById(selectedId).setStatus("rejected");
-				masterOrderDirectory.findById(selectedId).getBook().setStatus("ready");
+			
 				populate();
 			}
 		});
@@ -185,12 +184,7 @@ public class LibrarianFrame extends JFrame {
 		this.tableModel.setRowCount(0);
 		for (Request r:masterOrderDirectory.getOrders()) {
 			Object row[] = new Object[6];
-			row[0] = r.getRequestId();
-			row[1] = r.getBook().getID();
-			row[2] = r.getCustomer().getPersonID();
-			row[3] = r.getStartDate();
-			row[4] = r.getEndDate();
-			row[5] = r.getStatus();
+			
 			
 			tableModel.addRow(row);
 		}

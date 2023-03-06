@@ -2,8 +2,6 @@ package Customer;
 
 import java.util.ArrayList;
 
-import Library.Librarian;
-
 public class CustomerDirectory {
 	private ArrayList<Customer> customers;
 	

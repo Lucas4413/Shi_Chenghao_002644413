@@ -1,16 +1,18 @@
 package Personnel;
 
 public class Person {
-	String personID;
-	String name;
-	String age;
+	private String personID;
+	private String name;
+	private String age;
+	private static int count = 0;
 	
 	public Person() {
 			
 	}
 	
-	public Person(String id, String name, String age) {
-		this.personID = id;
+	public Person(String name, String age) {
+		this.count++;
+		this.personID = this.count+"";
 		this.name = name;
 		this.age = age;
 	}

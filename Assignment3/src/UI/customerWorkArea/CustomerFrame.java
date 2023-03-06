@@ -11,8 +11,7 @@ import Business.Application;
 import Customer.CustomerDirectory;
 import Library.Book;
 import Library.BookDirectory;
-import Library.Librarian;
-import Services.MasterRequestDirectory;
+import Services.RequestDirectory;
 import UI.MainFrame;
 import UI.adminWorkArea.AdminFrame;
 
@@ -37,7 +36,7 @@ public class CustomerFrame extends JFrame {
 	private JTable table;
 	private BookDirectory bookDirectory;
 	private DefaultTableModel tableModel;
-	private MasterRequestDirectory masterRequestDirectory;
+	private RequestDirectory masterRequestDirectory;
 	private CustomerDirectory customerDirectory;
 	private JTextField tfstart;
 	private JTextField tfend;
@@ -63,8 +62,6 @@ public class CustomerFrame extends JFrame {
 	public CustomerFrame(Application business,Account account) {
 		this.business = business;
 		this.account = account;
-		this.bookDirectory = this.business.getBookDirectory();
-		this.masterRequestDirectory = this.business.getMasterOrderDirectory();
 		this.customerDirectory = this.business.getCustomerDirectory();
 		
 		System.out.println(this.bookDirectory.getBooks().size());
@@ -112,11 +109,11 @@ public class CustomerFrame extends JFrame {
 		btnPlaceOrder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String id = table.getValueAt(table.getSelectedRow(), 0)+"";
-				bookDirectory.searchById(id).setStatus("requesting");;
+				
 				lblNewLabel.setText("request submitted");
 				String startString = tfstart.getText();
 				String endString = tfend.getText();
-				masterRequestDirectory.createOrder(customerDirectory.findById(account.getUsername()),bookDirectory.searchById(id),startString,endString);
+				
 				populate();
 			}
 		});
@@ -166,13 +163,7 @@ public class CustomerFrame extends JFrame {
 		tableModel.setRowCount(0);
 		for (Book b:this.bookDirectory.getBooks()) {
 			Object row[] = new Object[7];
-			row[0] = b.getID();
-			row[1] = b.getName();
-			row[2] = b.getAuthor().getID();
-			row[3] = b.getAuthor().getName();
-			row[4] = b.getGenre();
-			row[5] = b.getPrice();
-			row[6] = b.getStatus();
+			
 			
 			tableModel.addRow(row);
 		}

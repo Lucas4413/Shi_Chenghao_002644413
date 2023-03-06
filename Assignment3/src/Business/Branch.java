@@ -8,6 +8,14 @@ public class Branch {
 	private Library library;
 	private AccountDirectory accountDirectory;
 	
+	public AccountDirectory getAccountDirectory() {
+		return accountDirectory;
+	}
+
+	public void setAccountDirectory(AccountDirectory accountDirectory) {
+		this.accountDirectory = accountDirectory;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -24,16 +32,7 @@ public class Branch {
 		this.library = library;
 	}
 
-	public AccountDirectory getAccountDirectory() {
-		return accountDirectory;
-	}
-
-	public void setAccountDirectory(AccountDirectory accountDirectory) {
-		this.accountDirectory = accountDirectory;
-	}
-
 	public Branch() {
 		this.library = new Library();
-		this.accountDirectory = new AccountDirectory();
 	}
 }

@@ -12,8 +12,7 @@ import Library.Author;
 import Library.AuthorDirectory;
 import Library.Genre;
 import Library.GenreDirectory;
-import Library.Librarian;
-import Services.MasterRequestDirectory;
+import Services.RequestDirectory;
 import Services.Request;
 
 import java.awt.Choice;
@@ -29,7 +28,7 @@ public class GenreAndAuthorManagementJpanel extends JPanel {
 	private JTable table;
 	private DefaultTableModel tableModel;
 	private Application business;
-	private MasterRequestDirectory masterOrderDirectory;
+	private RequestDirectory masterOrderDirectory;
 	private JTextField tfName;
 	private JTextField tfNationality;
 	private JTextField tfGenre;
@@ -42,9 +41,6 @@ public class GenreAndAuthorManagementJpanel extends JPanel {
 	 */
 	public GenreAndAuthorManagementJpanel(Application business) {
 		this.business = business;
-		this.masterOrderDirectory = this.business.getMasterOrderDirectory();
-		this.authorDirectory = this.business.getAuthorDirectory();
-		this.genreDirectory = this.business.getGenreDirectory();
 		
 		setLayout(null);
 		

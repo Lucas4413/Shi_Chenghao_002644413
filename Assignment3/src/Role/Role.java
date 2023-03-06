@@ -3,15 +3,16 @@ package Role;
 import javax.swing.JFrame;
 
 import Business.Application;
+import Business.Branch;
 import Business.Account;
 
 public abstract class Role {
-	static String[] roles = {"manager", "customer", "agent" };
-
-    public static String[] getRoles() {
+    
+    private static String[] roles = {"branch manager", "system admin", "customer", "librarian"};
+    
+    public static String[] getAllRoles() {
         return roles;
     }
     
-    
-    public abstract JFrame getWorkArea(Application business, Account useraccount);
+    public abstract JFrame createWorkArea(Application application, Branch branch, Account useraccount);
 }

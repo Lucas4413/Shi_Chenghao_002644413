@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 import Customer.Customer;
 import Library.Book;
-import Library.Librarian;
+import Library.Magzine;
 
-public class MasterRequestDirectory {
+public class RequestDirectory {
 	private ArrayList<Request> orders;
 	
-	public MasterRequestDirectory() {
+	public RequestDirectory() {
 		this.orders = new ArrayList<Request>();
 	}
 
@@ -21,21 +21,15 @@ public class MasterRequestDirectory {
 		this.orders = orders;
 	}
 	
-	public Request createOrder(Customer customer, Book book, String start, String end) {
-		Request ord = new Request(customer, book,start,end);
+	public Request createOrder(String duration, float price, Book book, Magzine magzine, String bName) {
+		Request ord = new Request(duration, price, book, magzine, bName);
 		this.orders.add(ord);
 		return ord;
 	}
-	
-	public Request requestOrder(Customer customer) {
-		Request order = new Request();
-		order.setCustomer(customer);
-		this.orders.add(order);
-		return order;
-	}
+
 	public Request findById(String id) {
 		for (Request o:this.orders) {
-			if(o.getOrderId().equals(id)) {
+			if(o.getID().equals(id)) {
 				return o;
 			}
 		}

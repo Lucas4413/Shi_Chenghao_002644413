@@ -2,14 +2,14 @@ package Library;
 
 import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
 
-import Services.MasterRequestDirectory;
+import Services.RequestDirectory;
 
 public class Library {
 	private EmployeeDirectory employeeDirectory;
 	private int BuildingNO;
 	private AuthorDirectory authorDirectory;
 	private GenreDirectory genreDirectory;
-	private MasterRequestDirectory masterOrderDirectory;
+	private RequestDirectory masterOrderDirectory;
 	private BookDirectory bookDirectory;
 	private General general;
 	
@@ -40,10 +40,10 @@ public class Library {
 	public Library() {
 		this.employeeDirectory = new EmployeeDirectory();
 	}
-	public MasterRequestDirectory getMasterOrderDirectory() {
+	public RequestDirectory getMasterOrderDirectory() {
 		return masterOrderDirectory;
 	}
-	public void setMasterOrderDirectory(MasterRequestDirectory masterOrderDirectory) {
+	public void setMasterOrderDirectory(RequestDirectory masterOrderDirectory) {
 		this.masterOrderDirectory = masterOrderDirectory;
 	}
 	public AuthorDirectory getAuthorDirectory() {

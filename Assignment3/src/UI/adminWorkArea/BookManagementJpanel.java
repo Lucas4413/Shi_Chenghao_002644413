@@ -10,7 +10,6 @@ import Library.Book;
 import Library.BookDirectory;
 import Library.Genre;
 import Library.GenreDirectory;
-import Library.Librarian;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -40,9 +39,7 @@ public class BookManagementJpanel extends JPanel {
 	 */
 	public BookManagementJpanel(Application business) {
 		this.business = business;
-		this.bookDirectory = this.business.getBookDirectory();
-		this.genreDirectory = this.business.getGenreDirectory();
-		this.authorDirectory = this.business.getAuthorDirectory();
+		
 //		this.agentDirectory = this.business.getAgentDirectory();
 		
 		setLayout(null);
@@ -109,7 +106,7 @@ public class BookManagementJpanel extends JPanel {
 				String genre = comboBoxGenre.getSelectedItem()+"";
 				String author = comboBoxAuthor.getSelectedItem()+"";
 				
-				bookDirectory.createBook(nameString, price, authorDirectory.saerchById(author), genreDirectory.search(genre));
+				
 			
 				populate();
 			}

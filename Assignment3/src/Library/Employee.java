@@ -6,12 +6,14 @@ public class Employee extends Person{
 	private String ID;
 	private String experience;
 	private String designation;
+	private static int count = 0;
 	
 	public String getID() {
 		return ID;
 	}
-	public void setID(String iD) {
-		ID = iD;
+	public void setID() {
+		this.count++;
+		this.ID = "Employee"+this.count;
 	}
 	public String getExperience() {
 		return experience;

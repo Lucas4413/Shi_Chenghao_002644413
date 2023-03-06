@@ -3,15 +3,16 @@ package Customer;
 import java.util.ArrayList;
 
 import Personnel.Person;
+import Services.RequestDirectory;
 import Services.Request;
 
 public class Customer extends Person{
 	private int requestsInTotal;
-	private ArrayList<Request> customerRequestList;
+	private RequestDirectory requestDirectory;
 	
 	public Customer() {
 		super();
-		this.customerRequestList = new ArrayList<Request>();
+		this.requestDirectory = new RequestDirectory();
 	}
 
 	public int getOrdersTotal() {
@@ -22,15 +23,12 @@ public class Customer extends Person{
 		this.requestsInTotal = ordersTotal;
 	}
 
-	public ArrayList<Request> getCustomerOrderList() {
-		return customerRequestList;
+	public RequestDirectory getCustomerOrderList() {
+		return requestDirectory;
 	}
 
-	public void setCustomerOrderList(ArrayList<Request> customerOrderList) {
-		this.customerRequestList = customerOrderList;
+	public void setCustomerOrderList(RequestDirectory requestDirectory) {
+		this.requestDirectory = requestDirectory;
 	}
 	
-	public void addOrder(Request order) {
-		this.customerRequestList.add(order);
-	}
 }
