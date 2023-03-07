@@ -2,6 +2,7 @@ package Services;
 
 import java.util.ArrayList;
 
+import Business.Account;
 import Customer.Customer;
 import Library.Book;
 import Library.Magzine;
@@ -21,8 +22,8 @@ public class RequestDirectory {
 		this.orders = orders;
 	}
 	
-	public Request createOrder(String duration, float price, Book book, Magzine magzine, String bName) {
-		Request ord = new Request(duration, price, book, magzine, bName);
+	public Request createOrder(String duration, float price, Book book, Magzine magzine, Account account) {
+		Request ord = new Request(duration, price, book, magzine, account);
 		this.orders.add(ord);
 		return ord;
 	}

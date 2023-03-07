@@ -3,6 +3,7 @@ package Services;
 import java.nio.file.SecureDirectoryStream;
 import java.util.Date;
 
+import Business.Account;
 import Customer.Customer;
 import Library.Book;
 import Library.Magzine;
@@ -15,10 +16,10 @@ public class Request {
 	private float price;
 	private Book book;
 	private Magzine magzine;
-	private String branchName;
 	private static int count = 0;
+	private Account account;
 	
-	public Request(String duration, float price, Book book, Magzine magzine, String bName) {
+	public Request(String duration, float price, Book book, Magzine magzine, Account account) {
 		this.count++;
 		this.ID = this.count+"";
 		this.status = "applying";
@@ -26,9 +27,25 @@ public class Request {
 		this.price = price;
 		this.book = book;
 		this.magzine = magzine;
-		this.branchName = bName;
+		this.account = account;
 	}
 	
+	public static int getCount() {
+		return count;
+	}
+
+	public static void setCount(int count) {
+		Request.count = count;
+	}
+
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+
 	public String getID() {
 		return ID;
 	}
@@ -65,11 +82,6 @@ public class Request {
 	public void setMagzine(Magzine magzine) {
 		this.magzine = magzine;
 	}
-	public String getBranchName() {
-		return branchName;
-	}
-	public void setBranchName(String branchName) {
-		this.branchName = branchName;
-	}
+
 	
 }

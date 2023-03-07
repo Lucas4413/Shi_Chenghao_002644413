@@ -2,11 +2,19 @@ package Business;
 
 import Library.Employee;
 import Library.Library;
+import Services.RequestDirectory;
 
 public class Branch {
 	private String name;
 	private Library library;
 	private AccountDirectory accountDirectory;
+
+	
+	public Branch(String name) {
+		this.name = name;
+		this.library = new Library();
+		this.accountDirectory = new AccountDirectory();
+	}
 	
 	public AccountDirectory getAccountDirectory() {
 		return accountDirectory;
@@ -32,7 +40,4 @@ public class Branch {
 		this.library = library;
 	}
 
-	public Branch() {
-		this.library = new Library();
-	}
 }

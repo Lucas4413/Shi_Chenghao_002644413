@@ -1,5 +1,6 @@
 package Business;
 
+import javax.management.relation.RoleResult;
 import javax.swing.JFrame;
 
 import Role.Role;
@@ -12,13 +13,22 @@ public class Account{
 	private String username;
 	private String password;
 	private String accountId;
-	private String role;
-	private static int count = 0;
+	private Role role;
+	private static int count = -1;
 
-	public Account(String username, String role, String password) {
-		this.accountId = "ACC" + count++;
+	public Account(String username, String password, Role role1) {
+		this.count++;
+		this.accountId = this.count+"";
 		this.username = username;
 		this.password = password;
+		this.role = role1;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
 		this.role = role;
 	}
 
@@ -46,14 +56,6 @@ public class Account{
 		this.accountId = accountId;
 	}
 
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
-
 	public static int getCount() {
 		return count;
 	}
@@ -62,19 +64,4 @@ public class Account{
 		Account.count = count;
 	}
 	
-	public JFrame getWorkArea(String role,Application business, Account account) {
-		if(role.equals("admin")) {
-			return new AdminFrame(business, account);
-		}
-		if(role.equals("customer")) {
-			return new CustomerFrame(business, account);
-		}
-		if(role.equals("librarian")) {
-			return new LibrarianFrame(business, account);
-		}
-		if(role.equals("branch manager")) {
-			return new BranchManagerFrame(business, account);
-		}
-		return null;
-	}
 }

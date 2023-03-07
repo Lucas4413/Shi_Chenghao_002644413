@@ -10,9 +10,10 @@ public class Customer extends Person{
 	private int requestsInTotal;
 	private RequestDirectory requestDirectory;
 	
-	public Customer() {
+	public Customer(String name, String age) {
 		super();
 		this.requestDirectory = new RequestDirectory();
+		this.Person(name, age);
 	}
 
 	public int getOrdersTotal() {

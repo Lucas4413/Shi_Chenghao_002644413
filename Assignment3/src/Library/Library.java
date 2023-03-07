@@ -6,12 +6,24 @@ import Services.RequestDirectory;
 
 public class Library {
 	private EmployeeDirectory employeeDirectory;
-	private int BuildingNO;
+	private String BuildingNO;
 	private AuthorDirectory authorDirectory;
 	private GenreDirectory genreDirectory;
 	private RequestDirectory masterOrderDirectory;
 	private BookDirectory bookDirectory;
 	private General general;
+	private static int count = 0;
+	
+	public Library() {
+		this.employeeDirectory = new EmployeeDirectory();
+		this.count++;
+		this.BuildingNO = this.count+"";
+		this.authorDirectory = new AuthorDirectory();
+		this.genreDirectory = new GenreDirectory();
+		this.masterOrderDirectory = new RequestDirectory();
+		this.bookDirectory = new BookDirectory();
+		this.general = new General();
+	}
 	
 	public BookDirectory getBookDirectory() {
 		return bookDirectory;
@@ -31,14 +43,11 @@ public class Library {
 	public void setEmployeeDirectory(EmployeeDirectory employeeDirectory) {
 		this.employeeDirectory = employeeDirectory;
 	}
-	public int getBuildingNO() {
+	public String getBuildingNO() {
 		return BuildingNO;
 	}
-	public void setBuildingNO(int buildingNO) {
+	public void setBuildingNO(String buildingNO) {
 		BuildingNO = buildingNO;
-	}
-	public Library() {
-		this.employeeDirectory = new EmployeeDirectory();
 	}
 	public RequestDirectory getMasterOrderDirectory() {
 		return masterOrderDirectory;

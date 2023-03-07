@@ -8,9 +8,12 @@ import javax.swing.border.EmptyBorder;
 
 import Business.Account;
 import Business.Application;
+import Business.Branch;
 import Customer.CustomerDirectory;
 import Library.Book;
 import Library.BookDirectory;
+import Library.General;
+import Library.Magzine;
 import Services.RequestDirectory;
 import UI.MainFrame;
 import UI.adminWorkArea.AdminFrame;
@@ -19,27 +22,33 @@ import javax.swing.JSplitPane;
 import javax.sound.midi.Soundbank;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JTextField;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class CustomerFrame extends JFrame {
 
 	private JPanel contentPane;
 	private Application business;
 	private Account account;
-	private JTable table;
 	private BookDirectory bookDirectory;
-	private DefaultTableModel tableModel;
+	private General general;
+	private DefaultTableModel tableModelBook;
+	private DefaultTableModel tableModelMagzine;
 	private RequestDirectory masterRequestDirectory;
 	private CustomerDirectory customerDirectory;
-	private JTextField tfstart;
-	private JTextField tfend;
+	private Branch currentBranch;
+	private ArrayList<Branch> branchs;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -59,14 +68,14 @@ public class CustomerFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public CustomerFrame(Application business,Account account) {
+	public CustomerFrame(Application business, Branch branch ,Account account) {
 		this.business = business;
 		this.account = account;
 		this.customerDirectory = this.business.getCustomerDirectory();
+		this.branchs = this.business.getBranchs();
 		
-		System.out.println(this.bookDirectory.getBooks().size());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 663, 608);
+		setBounds(100, 100, 912, 876);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -76,7 +85,7 @@ public class CustomerFrame extends JFrame {
 		JSplitPane splitPane = new JSplitPane();
 		splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		splitPane.setResizeWeight(0.2);
-		splitPane.setBounds(0, 0, 647, 569);
+		splitPane.setBounds(0, 0, 896, 837);
 		contentPane.add(splitPane);
 		
 		JPanel panel = new JPanel();
@@ -90,82 +99,38 @@ public class CustomerFrame extends JFrame {
 				new MainFrame(CustomerFrame.this.business).setVisible(true);
 			}
 		});
-		btnLogout.setBounds(55, 51, 93, 23);
+		btnLogout.setBounds(54, 86, 93, 23);
 		panel.add(btnLogout);
 		
 		JLabel lbacc = new JLabel("");
-		lbacc.setBounds(194, 55, 54, 15);
+		lbacc.setBounds(193, 90, 54, 15);
 		panel.add(lbacc);
 		
 		JPanel panel_1 = new JPanel();
 		splitPane.setRightComponent(panel_1);
 		panel_1.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setBounds(38, 270, 335, 15);
-		panel_1.add(lblNewLabel);
-		
-		JButton btnPlaceOrder = new JButton("Request");
-		btnPlaceOrder.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String id = table.getValueAt(table.getSelectedRow(), 0)+"";
-				
-				lblNewLabel.setText("request submitted");
-				String startString = tfstart.getText();
-				String endString = tfend.getText();
-				
-				populate();
-			}
-		});
-		btnPlaceOrder.setBounds(257, 394, 129, 23);
-		panel_1.add(btnPlaceOrder);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(38, 26, 572, 234);
-		panel_1.add(scrollPane);
-		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Book ID", "Book Name", "Author ID", "Author Name", "Genre", "Price", "Status"
-			}
-		));
-		scrollPane.setViewportView(table);
-		
-		JLabel lblNewLabel_1 = new JLabel("Start Date");
-		lblNewLabel_1.setBounds(82, 338, 87, 15);
-		panel_1.add(lblNewLabel_1);
-		
-		tfstart = new JTextField();
-		tfstart.setBounds(183, 336, 105, 21);
-		panel_1.add(tfstart);
-		tfstart.setColumns(10);
-		
-		tfend = new JTextField();
-		tfend.setColumns(10);
-		tfend.setBounds(470, 335, 105, 21);
-		panel_1.add(tfend);
-		
-		JLabel lblNewLabel_1_1 = new JLabel("End Date");
-		lblNewLabel_1_1.setBounds(369, 337, 87, 15);
-		panel_1.add(lblNewLabel_1_1);
-		tableModel = (DefaultTableModel) table.getModel();
-		
 		lbacc.setText(this.account.getUsername());
 		
+		JButton btnRequestPage = new JButton("Request");
+		btnRequestPage.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				splitPane.setRightComponent(new RequestPanel(CustomerFrame.this.business, branch, CustomerFrame.this.account));
+			}
+		});
+		btnRequestPage.setBounds(506, 86, 93, 23);
+		panel.add(btnRequestPage);
+		
+		JButton btnReturnAndHistory = new JButton("Return and History");
+		btnReturnAndHistory.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				splitPane.setRightComponent(new ReturnAndHistoryJPanel(business, branch, CustomerFrame.this.account));
+			}
+		});
+		btnReturnAndHistory.setBounds(631, 86, 147, 23);
+		panel.add(btnReturnAndHistory);
+		
 		setVisible(true);
-		populate();
 	}
 	
-	public void populate() {
-		tableModel.setRowCount(0);
-		for (Book b:this.bookDirectory.getBooks()) {
-			Object row[] = new Object[7];
-			
-			
-			tableModel.addRow(row);
-		}
-	}
 }

@@ -5,20 +5,31 @@ public class EmployeeDirectory {
 	private Employee branchManager;
 	
 	public EmployeeDirectory() {
-		this.librarian = new Employee();
-		this.branchManager = new Employee();
+		
 	}
 	
 	public Employee getLibrarian() {
 		return librarian;
 	}
-	public void setLibrarian(Employee librarian) {
-		this.librarian = librarian;
+	public void setLibrarian(String name, String age, String experience, String designation) {
+		this.librarian = new Employee();
+		this.librarian.setExperience(experience);
+		this.librarian.setExperience(experience);
+		this.librarian.setDesignation(designation);
+		this.librarian.setID();
+		this.librarian.Person(name, age);
 	}
 	public Employee getBranchManagerEmployee() {
 		return branchManager;
 	}
-	public void setBranchManagerEmployee(Employee branchManagerEmployee) {
-		this.branchManager = branchManagerEmployee;
+	public void setBranchManagerEmployee(String name, String age, String experience, String designation) {
+		this.branchManager = new Employee();
+		this.branchManager.setExperience(experience);
+		this.branchManager.setExperience(experience);
+		this.branchManager.setDesignation(designation);
+		this.branchManager.setID();
+		this.branchManager.Person(name, age);
 	}
+	
+	
 }

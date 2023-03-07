@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 import Business.AccountDirectory;
 import Business.Application;
 import Customer.CustomerDirectory;
+import Role.CustomerRole;
 import UI.MainFrame;
 import UI.customerWorkArea.CustomerFrame;
 
@@ -112,8 +113,8 @@ public class RegisterFrame extends JFrame {
 				String password = tfPassword.getText();
 				String name = tfName.getText();
 				String age = tfAge.getText();
-				accountDirectory.createAccount(username, "customer", password);
-				customerDirectory.createCustomer(username, name, age);
+				accountDirectory.createAccount(username, new CustomerRole(), password);
+				customerDirectory.createCustomer(name, age);
 				lbRes.setText("Success");
 			}
 		});

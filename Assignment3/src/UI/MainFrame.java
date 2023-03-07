@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 import Business.Account;
 import Business.AccountDirectory;
 import Business.Application;
+import Business.Branch;
 
 import javax.swing.JSplitPane;
 import javax.swing.JButton;
@@ -44,7 +45,7 @@ public class MainFrame extends JFrame {
 	}
 	
 	public MainFrame(Application business) {
-		this.business = new Application();
+		this.business = business;
 		this.accountDirectory = this.business.getAccountDirectory();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -88,10 +89,11 @@ public class MainFrame extends JFrame {
 				String password = tfPassword.getText();
 				String role = choice.getSelectedItem();
 				System.out.println(accountDirectory.getAccountDirectory().size());
-				if (accountDirectory.accountExists(username, role, password)) {
+				if (accountDirectory.accountExists(username, password)) {
 					setVisible(false);
-					Account account = accountDirectory.getAccount(username, role, password);
-					account.getWorkArea(role, business, account);
+					Account account = accountDirectory.getAccount(username, password);
+					Branch branch = MainFrame.this.business.findAccountInBranch(username, password);
+					account.getRole().createWorkArea(business, branch, account);
 				}
 			}
 		});
@@ -163,10 +165,11 @@ public class MainFrame extends JFrame {
 				String password = tfPassword.getText();
 				String role = choice.getSelectedItem();
 				System.out.println(accountDirectory.getAccountDirectory().size());
-				if (accountDirectory.accountExists(username, role, password)) {
+				if (accountDirectory.accountExists(username, password)) {
 					setVisible(false);
-					Account account = accountDirectory.getAccount(username, role, password);
-					account.getWorkArea(role, business, account);
+					Account account = accountDirectory.getAccount(username, password);
+					Branch branch = MainFrame.this.business.findAccountInBranch(username, password);
+					account.getRole().createWorkArea(business, branch, account);
 				}
 			}
 		});

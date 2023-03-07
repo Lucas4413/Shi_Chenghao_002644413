@@ -11,16 +11,13 @@ import Business.Branch;
 import UI.customerWorkArea.CustomerFrame;
 import javax.swing.JFrame;
 
-/**
- *
- * @author Nidhi Raghavendra
- */
+
 public class CustomerRole extends Role {
 
     @Override
     public JFrame createWorkArea(Application business, Branch branch, Account useraccount) {
         // return jframe
-        return new CustomerFrame(business, useraccount);
+        return new CustomerFrame(business, branch, useraccount);
         
     }
     

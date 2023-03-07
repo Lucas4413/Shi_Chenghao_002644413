@@ -2,6 +2,8 @@ package Business;
 
 import java.util.ArrayList;
 
+import Role.Role;
+
 public class AccountDirectory {
 	ArrayList<Account> accountDirectory;
 
@@ -17,8 +19,11 @@ public class AccountDirectory {
 		this.accountDirectory = accountDirectory;
 	}
 
-	public Account createAccount(String username, String role, String password) {
-		Account userAccount = new Account(username, role, password);
+	public Account createAccount(String username, Role role, String password) {
+		if(this.getAccount(username, password)!=null) {
+			return null;
+		}
+		Account userAccount = new Account(username, password, role);
 		this.accountDirectory.add(userAccount);
 		return userAccount;
 	}
@@ -32,18 +37,18 @@ public class AccountDirectory {
 		return null;
 	}
 	
-	public Account getAccount(String username, String role, String password) {
+	public Account getAccount(String username, String password) {
 		for (Account acc:this.accountDirectory) {
-			if (acc.getUsername().equals(username) && acc.getPassword().equals(password) && acc.getRole().equals(role)) {
+			if (acc.getUsername().equals(username) && acc.getPassword().equals(password)) {
 				return acc;
 			}
 		}
 		return null;
 	}
 	
-	public Boolean accountExists(String username, String role, String password) {
+	public Boolean accountExists(String username, String password) {
 		for (Account acc:this.accountDirectory) {
-			if (acc.getUsername().equals(username) && acc.getPassword().equals(password) && acc.getRole().equals(role)) {
+			if (acc.getUsername().equals(username) && acc.getPassword().equals(password)) {
 				return true;
 			}
 		}

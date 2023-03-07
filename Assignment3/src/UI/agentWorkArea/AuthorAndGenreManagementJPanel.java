@@ -1,51 +1,47 @@
-package UI.adminWorkArea;
+package UI.agentWorkArea;
 
 import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.JScrollPane;
-import javax.swing.table.DefaultTableModel;
-
-import org.w3c.dom.html.HTMLTableCaptionElement;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 import Business.Application;
+import Business.Branch;
 import Library.Author;
 import Library.AuthorDirectory;
 import Library.Genre;
 import Library.GenreDirectory;
-import Services.RequestDirectory;
-import Services.Request;
 
-import java.awt.Choice;
-import java.awt.Button;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
 
-public class GenreAndAuthorManagementJpanel extends JPanel {
-	private JTable table;
-	private DefaultTableModel tableModel;
-	private Application business;
-	private RequestDirectory masterOrderDirectory;
+public class AuthorAndGenreManagementJPanel extends JPanel {
 	private JTextField tfName;
 	private JTextField tfNationality;
 	private JTextField tfGenre;
+	private JTable table;
+	private DefaultTableModel tableModel;
+	private Application application;
 	private AuthorDirectory authorDirectory;
 	private GenreDirectory genreDirectory;
 	private JComboBox<String> comboBoxGenre;
-	
+
 	/**
 	 * Create the panel.
 	 */
-	public GenreAndAuthorManagementJpanel(Application business) {
-		this.business = business;
+	public AuthorAndGenreManagementJPanel(Application application, Branch branch) {
+		this.application = application;
+		this.authorDirectory = branch.getLibrary().getAuthorDirectory();
+		this.genreDirectory = branch.getLibrary().getGenreDirectory();
 		
 		setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(28, 31, 472, 133);
+		scrollPane.setBounds(150, 24, 522, 133);
 		add(scrollPane);
 		
 		table = new JTable();
@@ -56,27 +52,25 @@ public class GenreAndAuthorManagementJpanel extends JPanel {
 				"Author ID", "Author Name", "Nationality"
 			}
 		));
-		
-		tableModel =(DefaultTableModel) table.getModel();
-		
 		scrollPane.setViewportView(table);
+		this.tableModel = (DefaultTableModel) table.getModel();
 		
 		JLabel lblNewLabel = new JLabel("Name");
-		lblNewLabel.setBounds(73, 199, 85, 15);
+		lblNewLabel.setBounds(195, 192, 85, 15);
 		add(lblNewLabel);
 		
 		tfName = new JTextField();
-		tfName.setBounds(168, 199, 195, 21);
-		add(tfName);
 		tfName.setColumns(10);
+		tfName.setBounds(290, 192, 195, 21);
+		add(tfName);
 		
 		JLabel lblNationality = new JLabel("Nationality");
-		lblNationality.setBounds(73, 243, 85, 15);
+		lblNationality.setBounds(195, 236, 85, 15);
 		add(lblNationality);
 		
 		tfNationality = new JTextField();
 		tfNationality.setColumns(10);
-		tfNationality.setBounds(168, 243, 195, 21);
+		tfNationality.setBounds(290, 236, 195, 21);
 		add(tfNationality);
 		
 		JButton btnAddAuthor = new JButton("Add");
@@ -88,17 +82,17 @@ public class GenreAndAuthorManagementJpanel extends JPanel {
 				populate();
 			}
 		});
-		btnAddAuthor.setBounds(407, 223, 93, 23);
+		btnAddAuthor.setBounds(529, 216, 93, 23);
 		add(btnAddAuthor);
 		
-		comboBoxGenre = new JComboBox<>();
-		comboBoxGenre.setBounds(71, 367, 242, 23);
-		add(comboBoxGenre);
+		this.comboBoxGenre = new JComboBox<String>();
+		this.comboBoxGenre.setBounds(193, 360, 242, 23);
+		add(this.comboBoxGenre);
 		
 		tfGenre = new JTextField();
-		tfGenre.setBounds(73, 433, 240, 21);
-		add(tfGenre);
 		tfGenre.setColumns(10);
+		tfGenre.setBounds(195, 426, 240, 21);
+		add(tfGenre);
 		
 		JButton btnAddGenre = new JButton("Add");
 		btnAddGenre.addActionListener(new ActionListener() {
@@ -110,9 +104,13 @@ public class GenreAndAuthorManagementJpanel extends JPanel {
 				populateGenre();
 			}
 		});
-		btnAddGenre.setBounds(382, 432, 93, 23);
+		btnAddGenre.setBounds(504, 425, 93, 23);
 		add(btnAddGenre);
-
+		
+		JLabel lblNewLabel_1 = new JLabel("Genre:");
+		lblNewLabel_1.setBounds(195, 335, 54, 15);
+		add(lblNewLabel_1);
+		
 		populate();
 		populateGenre();
 	}

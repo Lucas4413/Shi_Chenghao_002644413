@@ -1,5 +1,9 @@
 package Library;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class Book extends Material{
 
 	private Author author;
@@ -37,5 +41,10 @@ public class Book extends Material{
 	}
 	public void setTypeOfBinding(String typeOfBinding) {
 		this.typeOfBinding = typeOfBinding;
+	}
+	
+	public String dateToString(Date registeredDate) {
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+		return simpleDateFormat.format(registeredDate);
 	}
 }

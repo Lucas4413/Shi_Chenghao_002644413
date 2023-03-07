@@ -27,11 +27,8 @@ public class CustomerDirectory {
 		return null;
 	}
 
-	public void createCustomer(String id, String name,String age) {
-		Customer customer = new Customer();
-		customer.setAge(age);
-		customer.setName(name);
-		customer.setPersonID(id);
+	public void createCustomer(String name,String age) {
+		Customer customer = new Customer(name,age);
 		this.customers.add(customer);
 	}
 }

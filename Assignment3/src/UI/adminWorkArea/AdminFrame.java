@@ -8,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 
 import Business.Account;
 import Business.Application;
+import Business.Branch;
 import UI.MainFrame;
 
 import javax.swing.JSplitPane;
@@ -39,7 +40,7 @@ public class AdminFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AdminFrame(Application business, Account account) {
+	public AdminFrame(Application business, Branch branch, Account account) {
 		this.business = business;
 		this.account = account;
 		
@@ -77,26 +78,26 @@ public class AdminFrame extends JFrame {
 				splitPane.setRightComponent(new CustomerManagementJPanel(business));
 			}
 		});
-		btnCustomer.setBounds(462, 42, 93, 23);
+		btnCustomer.setBounds(516, 42, 93, 23);
 		panel.add(btnCustomer);
 		
-		JButton btnOrder = new JButton("Gnere and Author");
-		btnOrder.addActionListener(new ActionListener() {
+		JButton btnEmployee = new JButton("Employee");
+		btnEmployee.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				splitPane.setRightComponent(new GenreAndAuthorManagementJpanel(business));
+				splitPane.setRightComponent(new EmployeeManagementJpanel(business));
 			}
 		});
-		btnOrder.setBounds(565, 42, 162, 23);
-		panel.add(btnOrder);
+		btnEmployee.setBounds(722, 42, 129, 23);
+		panel.add(btnEmployee);
 		
-		JButton btnAgent = new JButton("Book");
-		btnAgent.addActionListener(new ActionListener() {
+		JButton btnBranch = new JButton("Branch");
+		btnBranch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				splitPane.setRightComponent(new BookManagementJpanel(business));
+				splitPane.setRightComponent(new BranchManagementJpanel(business));
 			}
 		});
-		btnAgent.setBounds(737, 42, 93, 23);
-		panel.add(btnAgent);
+		btnBranch.setBounds(619, 42, 93, 23);
+		panel.add(btnBranch);
 		
 		JPanel panel_1 = new JPanel();
 		splitPane.setRightComponent(panel_1);

@@ -7,10 +7,9 @@ public class Person {
 	private static int count = 0;
 	
 	public Person() {
-			
 	}
 	
-	public Person(String name, String age) {
+	public void Person(String name, String age) {
 		this.count++;
 		this.personID = this.count+"";
 		this.name = name;

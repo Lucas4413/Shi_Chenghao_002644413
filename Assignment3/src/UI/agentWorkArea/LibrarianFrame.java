@@ -8,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 
 import Business.Account;
 import Business.Application;
+import Business.Branch;
 import Services.RequestDirectory;
 import Services.Request;
 import UI.MainFrame;
@@ -29,7 +30,6 @@ public class LibrarianFrame extends JFrame {
 	private Account account;
 	private DefaultTableModel tableModel;
 	private RequestDirectory masterOrderDirectory;
-	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -50,56 +50,28 @@ public class LibrarianFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public LibrarianFrame(Application business, Account account) {
+	public LibrarianFrame(Application business, Branch branch, Account account) {
 		this.business = business;
 		this.account = account;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 663, 608);
+		setBounds(100, 100, 942, 809);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JPanel contentPane_1 = new JPanel();
-		contentPane_1.setBounds(323, 10, 1, 1);
-		contentPane_1.setLayout(null);
-		contentPane_1.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.add(contentPane_1);
-		
-		JSplitPane splitPane = new JSplitPane();
-		splitPane.setResizeWeight(0.2);
-		splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
-		splitPane.setBounds(0, 0, 647, 569);
-		contentPane_1.add(splitPane);
-		
-		JPanel panel = new JPanel();
-		panel.setLayout(null);
-		splitPane.setLeftComponent(panel);
-		
-		JButton btnLogout = new JButton("Log out");
-		btnLogout.setBounds(55, 51, 93, 23);
-		panel.add(btnLogout);
-		
-		JPanel panel_1 = new JPanel();
-		panel_1.setLayout(null);
-		splitPane.setRightComponent(panel_1);
-		
-		JButton btnPlaceOrder = new JButton("Place Order");
-		btnPlaceOrder.setBounds(255, 416, 129, 23);
-		panel_1.add(btnPlaceOrder);
-		
 		JPanel contentPane_2 = new JPanel();
 		contentPane_2.setLayout(null);
 		contentPane_2.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane_2.setBounds(0, 0, 647, 569);
+		contentPane_2.setBounds(0, 0, 926, 770);
 		contentPane.add(contentPane_2);
 		
 		JSplitPane splitPane_1 = new JSplitPane();
 		splitPane_1.setResizeWeight(0.2);
 		splitPane_1.setOrientation(JSplitPane.VERTICAL_SPLIT);
-		splitPane_1.setBounds(0, 0, 647, 569);
+		splitPane_1.setBounds(0, 0, 926, 770);
 		contentPane_2.add(splitPane_1);
 		
 		JPanel panel_2 = new JPanel();
@@ -113,80 +85,55 @@ public class LibrarianFrame extends JFrame {
 				new MainFrame(LibrarianFrame.this.business).setVisible(true);
 			}
 		});
-		btnLogout_1.setBounds(55, 51, 93, 23);
+		btnLogout_1.setBounds(26, 26, 93, 23);
 		panel_2.add(btnLogout_1);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setBounds(178, 55, 294, 15);
+		lblNewLabel.setBounds(149, 30, 180, 15);
 		panel_2.add(lblNewLabel);
 		
 		JPanel panel_1_1 = new JPanel();
 		panel_1_1.setLayout(null);
 		splitPane_1.setRightComponent(panel_1_1);
 		
-		JButton btnApprove = new JButton("Approve");
-		btnApprove.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					String selectedId = table.getValueAt(table.getSelectedRow(), 0)+"";
-				} catch (Exception e2) {
-					// TODO: handle exception
-					return;
-				}
-				String selectedId = table.getValueAt(table.getSelectedRow(), 0)+"";
-				masterOrderDirectory.findById(selectedId).setStatus("approved");
-				populate();
-			}
-		});
-		btnApprove.setBounds(182, 390, 93, 23);
-		panel_1_1.add(btnApprove);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 38, 625, 273);
-		panel_1_1.add(scrollPane);
-		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Request ID", "Book ID", "Customer ID", "Start Date", "End Date", "Status"
-			}
-		));
-		scrollPane.setViewportView(table);
-		tableModel = (DefaultTableModel) table.getModel();
-		
-		JButton btnReject = new JButton("Reject");
-		btnReject.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					String selectedId = table.getValueAt(table.getSelectedRow(), 0)+"";
-				} catch (Exception e2) {
-					// TODO: handle exception
-					return;
-				}
-				String selectedId = table.getValueAt(table.getSelectedRow(), 0)+"";
-				masterOrderDirectory.findById(selectedId).setStatus("rejected");
-			
-				populate();
-			}
-		});
-		btnReject.setBounds(363, 390, 93, 23);
-		panel_1_1.add(btnReject);
-		
 		lblNewLabel.setText(this.account.getUsername());
 		
+		JButton btnAuthorAndGenre = new JButton("Author and Genre");
+		btnAuthorAndGenre.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				splitPane_1.setRightComponent(new AuthorAndGenreManagementJPanel(LibrarianFrame.this.business, branch));
+			}
+		});
+		btnAuthorAndGenre.setBounds(209, 105, 151, 23);
+		panel_2.add(btnAuthorAndGenre);
+		
+		JButton btnBookManagement = new JButton("Book Management");
+		btnBookManagement.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				splitPane_1.setRightComponent(new BookManagementJpanel(LibrarianFrame.this.business, branch));
+			}
+		});
+		btnBookManagement.setBounds(370, 105, 172, 23);
+		panel_2.add(btnBookManagement);
+		
+		JButton btnRequestManagement = new JButton("Request Management");
+		btnRequestManagement.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				splitPane_1.setRightComponent(new RequestManagementJPanel(LibrarianFrame.this.business, branch));
+			}
+		});
+		btnRequestManagement.setBounds(734, 105, 162, 23);
+		panel_2.add(btnRequestManagement);
+		
+		JButton btnMagzineManagement = new JButton("Magzine Management");
+		btnMagzineManagement.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				splitPane_1.setRightComponent(new MagzineManagementJpanel(LibrarianFrame.this.business, branch));
+			}
+		});
+		btnMagzineManagement.setBounds(552, 105, 172, 23);
+		panel_2.add(btnMagzineManagement);
+		
 		setVisible(true);
-		populate();
-	}
-	
-	public void populate() {
-		this.tableModel.setRowCount(0);
-		for (Request r:masterOrderDirectory.getOrders()) {
-			Object row[] = new Object[6];
-			
-			
-			tableModel.addRow(row);
-		}
 	}
 }

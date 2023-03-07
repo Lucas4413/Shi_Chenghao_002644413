@@ -11,15 +11,12 @@ import Business.Branch;
 import UI.managerWorkArea.BranchManagerFrame;
 import javax.swing.JFrame;
 
-/**
- *
- * @author Nidhi Raghavendra
- */
+
 public class BranchAdminRole extends Role {
 
     @Override
     public JFrame createWorkArea(Application business, Branch branch, Account useraccount) {
-       return new BranchManagerFrame(business, useraccount);
+       return new BranchManagerFrame(business, branch, useraccount);
     }
     
 }

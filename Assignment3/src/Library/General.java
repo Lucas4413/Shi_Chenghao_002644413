@@ -29,4 +29,13 @@ public class General {
 		mag.setIsAvailable(true);
 		this.magzines.add(mag);
 	}
+	
+	public Magzine searchById(String id) {
+		for (Magzine m:this.magzines) {
+			if(m.getSerialNumber().equals(id)) {
+				return m;
+			}
+		}
+		return null;
+	}
 }
