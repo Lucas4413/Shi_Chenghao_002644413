@@ -35,7 +35,7 @@ public class RequestsJPanel extends JPanel {
 		setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(50, 65, 766, 262);
+		scrollPane.setBounds(10, 65, 861, 262);
 		add(scrollPane);
 		
 		table = new JTable();
@@ -44,16 +44,16 @@ public class RequestsJPanel extends JPanel {
 			new Object[][] {
 			},
 			new String[] {
-				"ID", "Book Serial NO.", "Magzine Serial NO.", "Duration", "Price", "Status"
+				"ID", "Book Serial NO.", "Magzine Serial NO.", "Duration", "Price", "Status", "Username"
 			}
 		));
 		
 		JLabel lblNewLabel = new JLabel("Total Revenue:");
-		lblNewLabel.setBounds(62, 389, 96, 15);
+		lblNewLabel.setBounds(39, 389, 96, 15);
 		add(lblNewLabel);
 		
 		JLabel lbIncome = new JLabel("");
-		lbIncome.setBounds(168, 389, 175, 15);
+		lbIncome.setBounds(145, 389, 175, 15);
 		add(lbIncome);
 		
 		tableModel =(DefaultTableModel) table.getModel();
@@ -65,13 +65,23 @@ public class RequestsJPanel extends JPanel {
 	public void populate() {
 		this.tableModel.setRowCount(0);
 		for (Request r:this.requestDirectory.getOrders()) {
-			Object row[] = new Object[6];
+			Object row[] = new Object[7];
 			row[0] = r.getID();
-			row[1] = r.getBook().getSerialNumber();
-			row[2] = r.getMagzine().getSerialNumber();
+			if(r.getBook()!=null) {
+				row[1] = r.getBook().getSerialNumber();
+			}else {
+				row[1] = "";
+			}
+			if(r.getMagzine()!=null) {
+				row[2] = r.getMagzine().getSerialNumber();
+			}else {
+				row[2] = "";
+			}
 			row[3] = r.getDuration();
 			row[4] = r.getPrice();
 			row[5] = r.getStatus();
+			row[6] = r.getAccount().getUsername();
+			
 			this.tableModel.addRow(row);
 		}
 	}

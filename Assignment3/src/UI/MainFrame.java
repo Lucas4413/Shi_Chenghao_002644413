@@ -74,9 +74,6 @@ public class MainFrame extends JFrame {
 		lbPassword.setBounds(285, 159, 76, 15);
 		contentPane.add(lbPassword);
 		
-		Choice choice = new Choice();
-		choice.setBounds(403, 228, 153, 21);
-		contentPane.add(choice);
 		
 		JLabel lblNewLabel = new JLabel("Welcome");
 		lblNewLabel.setBounds(403, 51, 84, 15);
@@ -87,7 +84,6 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String username = tfUsername.getText();
 				String password = tfPassword.getText();
-				String role = choice.getSelectedItem();
 				System.out.println(accountDirectory.getAccountDirectory().size());
 				if (accountDirectory.accountExists(username, password)) {
 					setVisible(false);
@@ -110,10 +106,6 @@ public class MainFrame extends JFrame {
 		});
 		btnRegister.setBounds(535, 299, 93, 23);
 		contentPane.add(btnRegister);
-		choice.add("admin");
-		choice.add("manager");
-		choice.add("customer");
-		choice.add("librarian");
 	
 	}
 
@@ -150,10 +142,6 @@ public class MainFrame extends JFrame {
 		lbPassword.setBounds(285, 159, 76, 15);
 		contentPane.add(lbPassword);
 		
-		Choice choice = new Choice();
-		choice.setBounds(403, 228, 153, 21);
-		contentPane.add(choice);
-		
 		JLabel lblNewLabel = new JLabel("Welcome");
 		lblNewLabel.setBounds(403, 51, 84, 15);
 		contentPane.add(lblNewLabel);
@@ -163,7 +151,6 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String username = tfUsername.getText();
 				String password = tfPassword.getText();
-				String role = choice.getSelectedItem();
 				System.out.println(accountDirectory.getAccountDirectory().size());
 				if (accountDirectory.accountExists(username, password)) {
 					setVisible(false);
@@ -186,10 +173,6 @@ public class MainFrame extends JFrame {
 		});
 		btnRegister.setBounds(535, 299, 93, 23);
 		contentPane.add(btnRegister);
-		choice.add("admin");
-		choice.add("manager");
-		choice.add("customer");
-		choice.add("librarian");
 	
 	}
 }

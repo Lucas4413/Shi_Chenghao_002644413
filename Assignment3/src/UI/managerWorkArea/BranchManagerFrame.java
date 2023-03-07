@@ -9,6 +9,9 @@ import javax.swing.border.EmptyBorder;
 import Business.Account;
 import Business.Application;
 import Business.Branch;
+import UI.MainFrame;
+import UI.customerWorkArea.CustomerFrame;
+
 import javax.swing.JSplitPane;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -64,6 +67,12 @@ public class BranchManagerFrame extends JFrame {
 		splitPane.setLeftComponent(panel);
 		
 		JButton btnLogout = new JButton("Log out");
+		btnLogout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				new MainFrame(BranchManagerFrame.this.application).setVisible(true);
+			}
+		});
 		btnLogout.setBounds(54, 86, 93, 23);
 		panel.add(btnLogout);
 		
@@ -93,5 +102,12 @@ public class BranchManagerFrame extends JFrame {
 		panel_1.setLayout(null);
 		splitPane.setRightComponent(panel_1);
 		setVisible(true);
+		lbacc.setText(account.getUsername());
+		
+		JLabel lbBranch = new JLabel("");
+		lbBranch.setBounds(283, 90, 54, 15);
+		panel.add(lbBranch);
+		lbBranch.setText(branch.getName());
+		
 	}
 }

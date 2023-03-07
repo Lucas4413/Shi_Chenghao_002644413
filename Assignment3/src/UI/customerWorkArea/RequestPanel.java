@@ -187,6 +187,8 @@ public class RequestPanel extends JPanel {
 				
 				populateBook();
 				populateMagzine();
+				tfBook.setText("");
+				tfMagzine.setText("");
 			}
 		});
 		btnRequest.setBounds(360, 617, 131, 23);

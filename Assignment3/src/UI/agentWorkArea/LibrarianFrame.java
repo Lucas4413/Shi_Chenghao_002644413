@@ -134,6 +134,11 @@ public class LibrarianFrame extends JFrame {
 		btnMagzineManagement.setBounds(552, 105, 172, 23);
 		panel_2.add(btnMagzineManagement);
 		
+		JLabel lbBranch = new JLabel("");
+		lbBranch.setBounds(231, 30, 54, 15);
+		panel_2.add(lbBranch);
+		
+		lbBranch.setText(branch.getName());
 		setVisible(true);
 	}
 }

@@ -88,7 +88,7 @@ public class MagzineManagementJpanel extends JPanel {
 		
 		tfCompanyName = new JTextField();
 		tfCompanyName.setColumns(10);
-		tfCompanyName.setBounds(508, 306, 167, 21);
+		tfCompanyName.setBounds(532, 306, 143, 21);
 		add(tfCompanyName);
 		
 		tfIssueType = new JTextField();

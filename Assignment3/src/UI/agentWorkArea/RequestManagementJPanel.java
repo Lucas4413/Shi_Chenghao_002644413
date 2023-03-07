@@ -35,7 +35,7 @@ public class RequestManagementJPanel extends JPanel {
 		setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(50, 31, 766, 262);
+		scrollPane.setBounds(10, 31, 861, 262);
 		add(scrollPane);
 		
 		table = new JTable();
@@ -44,7 +44,7 @@ public class RequestManagementJPanel extends JPanel {
 			new Object[][] {
 			},
 			new String[] {
-				"ID", "Book Serial NO.", "Magzine Serial NO.", "Duration", "Price", "Status"
+				"ID", "Book Serial NO.", "Magzine Serial NO.", "Duration", "Price", "Status", "Username"
 			}
 		));
 		
@@ -105,13 +105,23 @@ public class RequestManagementJPanel extends JPanel {
 	public void populate() {
 		this.tableModel.setRowCount(0);
 		for (Request r:this.requestDirectory.getOrders()) {
-			Object row[] = new Object[6];
+			Object row[] = new Object[7];
 			row[0] = r.getID();
-			row[1] = r.getBook().getSerialNumber();
-			row[2] = r.getMagzine().getSerialNumber();
+			if(r.getBook()!=null) {
+				row[1] = r.getBook().getSerialNumber();
+			}else {
+				row[1] = "";
+			}
+			if(r.getMagzine()!=null) {
+				row[2] = r.getMagzine().getSerialNumber();
+			}else {
+				row[2] = "";
+			}
 			row[3] = r.getDuration();
 			row[4] = r.getPrice();
 			row[5] = r.getStatus();
+			row[6] = r.getAccount().getUsername();
+			
 			this.tableModel.addRow(row);
 		}
 	}
